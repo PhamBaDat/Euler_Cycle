@@ -1,5 +1,6 @@
 import random
 import copy
+import timeit
 import networkx as nx # type: ignore
 import matplotlib.pyplot as plt
 
@@ -159,7 +160,7 @@ def draw_graph_with_euler_cycle(graph, euler_cycle):
     plt.show()
 
 if __name__ == "__main__":
-    vertex = 5
+    vertex = 500
     edges = generate_adjacency_list(vertex)
     graph = Graph()
     graph.init_graph(edges)
@@ -171,4 +172,8 @@ if __name__ == "__main__":
     cycle = graph.find_eulerian_cycle()
     # Draw
     draw_graph_with_euler_cycle(graph, cycle)
+    
+    # Measure time play
+    execution_time = timeit.timeit(lambda: graph.find_eulerian_cycle(), number=1)
+    print(f"Time taken to find Eulerian cycle: {execution_time} seconds")
     
