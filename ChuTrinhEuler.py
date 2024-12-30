@@ -133,6 +133,8 @@ def draw_graph_with_euler_cycle(graph, euler_cycle):
                 G.add_edge(node, adj)
                 P.add_edge(node, adj)
 
+    plt.close()
+
     pos = nx.spring_layout(G)   # Bố cục
     # pos2 = nx.spring_layout(P)
     
@@ -206,6 +208,11 @@ def resize_image(event):
     root.bg_img = ImageTk.PhotoImage(resized_image)
     label.config(image = root.bg_img)
 
+def clear_graph():
+    # Clear the graph
+    plt.close()  # Clear the current figure
+    print("Graph cleared!")
+
 def init_GUI():
     global root, label
     root =  tk.Tk()
@@ -234,7 +241,10 @@ def init_GUI():
     entry_vertex.pack(pady=5)
 
     run_button = tk.Button(frame, text = "Generate Graph & Find Euler Cycle", bg=YELLOW , command=run_graph)
-    run_button.pack(pady=20)
+    run_button.pack(pady=10)
+
+    clear_button = tk.Button(frame, text='CLEAR',width=8, bg = RED,  command=lambda: clear_graph())
+    clear_button.pack(pady=5)
 
 def exit(music, root):
     music.stop()
