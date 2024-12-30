@@ -1,0 +1,127 @@
+**III. Giải thuật Fleury tìm chu trình Euler**
+
+########################################################################################################################################################
+1. Phát biểu bài toán
+Cho đa đồ thị vô hướng liên thông G gồm n đỉnh,m cạnh. Hãy tìm ra một chu trình Euler của đồ thị?
+
+Input:
+Dòng đầu tiên chứa số nguyên dương n - số đỉnh của đồ thị (1≤n≤100).
+Các dòng tiếp theo, mỗi dòng chứa ba số nguyên u,v,k - cho biết giữa hai đỉnh u và v có k cạnh nối.
+
+Output:
+Ghi ra một chu trình Euler tìm được. Nếu đồ thị ban đầu không phải đồ thị Euler, in ra 0.
+
+
+
+########################################################################################################################################################
+**
+ĐIỀU KIỆN ĐỂ ĐỒ THỊ CÓ CHU TRÌNH EULER VÀ ĐƯỜNG ĐI EULER!
+
+-> ĐỒ THỊ VÔ HƯỚNG
+Đồ thị vô hướng có chu trình Euler nếu:
+	- Các đỉnh  có bậc khác 0  của đồ thị  liên thông với nhau
+	- Tất cả các đỉnh  của đồ thị đều có bậc số chẵn
+Đồ thị vô hướng có đường đi Euler nếu:
+	- Các đỉnh  có bậc khác 0  của đồ thị  liên thông với nhau
+	- Đồ thị có 0 hoặc 2 đỉnh có bậc lẻ, trong trường hợp  có 2 đỉnh  bậc lẻ thì đường đi sẽ bắt đầu từ đỉnh lẻ thứ nhất và kết thúc ở đỉnh lẻ thứ hai.
+
+->  ĐỒ THỊ CÓ HƯỚNG
+Đồ thị có hướng có chu trình Euler nếu:
+	- Các đỉnh có bậc khác 0 của đồ thị thuộc cùng 1 thành phần liên thông.
+	- Mọi đỉnh thuộc đồ thị đều có bán bậc ra {deg+(u)} bằng bán bậc vào {deg-(u)}
+Đồ thị có hướng có đường đi Euler nếu::
+	- Các đỉnh có bậc khác 0 của đồ thị thuộc cùng 1 thành phần liên thông
+	- Tồn tại 2 đỉnh u, v mà deg+(u) – deg-(u) = 1 và deg-(v) – deg+(v) = 1 , mọi đỉnh còn lại đều có bán bậc ra bằng bán bậc vào. Khi đó đường di ở đỉnh u và kết thúc ở đỉnh v.
+
+
+
+########################################################################################################################################################
+**Thuật toán tìm chu trình Euler**
+Begin
+	Stack = ø ;  EC = ø; v là đỉnh tùy ý của đồ thị
+	Push v onto Stack;
+	While (Stack != ø) do
+	Begin
+		u là đỉnh đầu tiên trong danh sách kề của đỉnh v;
+		push u onto Stack ;
+		xóa cạnh (v,u);
+	end	
+else
+begin
+	v=top (Stack);
+	push v onto EC
+end
+end
+END
+
+
+########################################################################################################################################################
+**Thuật toán Hierholzer tìm chu trình Euler**
+ 1. Mô tả thuật toán Hierholzer:
+    Bước 1: Kiểm tra điều kiện tồn tại chu trình Euler:
+    Đồ thị phải là liên thông.
+    Tất cả các đỉnh trong đồ thị phải có bậc chẵn.
+    Bước 2: Khởi tạo chu trình tại một đỉnh bất kỳ.
+    Bước 3: Trong khi còn cạnh chưa được duyệt:
+    Chọn một đỉnh trong chu trình hiện tại và tìm một chu trình con bắt đầu từ đỉnh đó.
+    Gộp chu trình con này vào chu trình chính.
+    Bước 4: Chu trình Euler hoàn thành khi không còn cạnh nào chưa được duyệt. 
+ 
+ 
+
+########################################################################################################################################################
+**Thuật toán Fleury để tìm Chu trình Euler hoặc Đường đi Euler
+(Xóa cạnh -> Ko xóa đỉnh)
+Thuật toán Fleury là một trong những thuật toán đơn giản để tìm chu trình Euler hoặc đường đi Euler trong một đồ thị. Đây là thuật toán dựa trên việc lần lượt xóa các cạnh của đồ thị trong quá trình duyệt, đồng thời luôn ưu tiên chọn cạnh không phải cầu (nếu có thể).
+
+Điều kiện áp dụng
+Đường đi Euler:
+Đồ thị phải có hai đỉnh bậc lẻ (tức là số cạnh kết nối với đỉnh là số lẻ).
+Bắt đầu từ một trong hai đỉnh bậc lẻ và kết thúc tại đỉnh còn lại.
+Chu trình Euler:
+Đồ thị phải có tất cả các đỉnh đều có bậc chẵn.
+Bắt đầu và kết thúc tại cùng một đỉnh.
+
+Các bước thực hiện thuật toán Fleury
+Kiểm tra điều kiện:
+
+Xác định bậc của các đỉnh để biết đồ thị có thỏa mãn điều kiện có chu trình Euler hoặc đường đi Euler không.
+Chọn đỉnh bắt đầu:
+
+Nếu tìm đường đi Euler, bắt đầu từ một trong hai đỉnh bậc lẻ.
+Nếu tìm chu trình Euler, bắt đầu từ bất kỳ đỉnh nào.
+Lặp lại cho đến khi tất cả các cạnh đã đi qua:
+
+Tại mỗi đỉnh hiện tại:
+Duyệt qua từng cạnh kết nối đến các đỉnh khác.
+Chọn cạnh không phải cầu trước (trừ khi không còn lựa chọn nào khác).
+Một cạnh là cầu nếu việc xóa nó làm đồ thị trở thành đồ thị không liên thông.
+Di chuyển qua cạnh đó, xóa nó khỏi đồ thị.
+Lưu đường đi:
+
+Ghi lại trình tự các đỉnh đã đi qua.
+Kết thúc:
+
+Khi tất cả các cạnh đã đi qua, ta thu được chu trình hoặc đường đi Euler.
+Ưu điểm và Nhược điểm
+Ưu điểm:
+Thuật toán đơn giản và dễ hiểu.
+Thích hợp cho các đồ thị nhỏ.
+Nhược điểm:
+Xác định cạnh là cầu yêu cầu kiểm tra tính liên thông của đồ thị (có thể tốn thời gian).
+Không hiệu quả với các đồ thị lớn hoặc phức tạp.
+Ví dụ minh họa
+Đồ thị ví dụ
+Đồ thị có các đỉnh: A, B, C, D, E.
+Các cạnh: A-B, B-C, C-D, D-A, A-E, E-D.
+Bước thực hiện
+Đồ thị này có tất cả các đỉnh bậc chẵn → Chu trình Euler.
+Bắt đầu từ đỉnh A.
+Lần lượt chọn các cạnh:
+Từ A, chọn cạnh A-B.
+Từ B, chọn cạnh B-C.
+Từ C, chọn cạnh C-D.
+Từ D, chọn cạnh D-A.
+Từ A, chọn cạnh A-E.
+Từ E, chọn cạnh E-D.
+Chu trình Euler: A → B → C → D → A → E → D
